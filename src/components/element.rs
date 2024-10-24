@@ -66,11 +66,11 @@ pub fn inline_md(
 }
 /// b, strong
 fn bold(s: &str) -> String {
-    format!(" **{}** ", s)
+    format!("**{}**", s)
 }
 /// i, em
 fn italic(s: &str) -> String {
-    format!(" *{}* ", s)
+    format!("*{}*", s)
 }
 
 /// div, p

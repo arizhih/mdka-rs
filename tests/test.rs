@@ -33,13 +33,13 @@ fn block() {
 
 #[test]
 fn bold() {
-    let cases = vec![("<b>1</b>", " **1** "), ("<strong>2</strong>", " **2** ")];
+    let cases = vec![("<b>1</b>", "**1**"), ("<strong>2</strong>", "**2**")];
     assert(cases);
 }
 
 #[test]
 fn italic() {
-    let cases = vec![("<i>1</i>", " *1* "), ("<em>2</em>", " *2* ")];
+    let cases = vec![("<i>1</i>", "*1*"), ("<em>2</em>", "*2*")];
     assert(cases);
 }
 
@@ -451,13 +451,13 @@ fn contenteditable_element() {
         ("<div contenteditable=\"true\">lorem</div>", "lorem\n"),
         ("<p contenteditable=\"true\">lorem</p>", "lorem\n\n"),
         ("<span contenteditable=\"true\">lorem</span>", "lorem"),
-        ("<b contenteditable=\"true\">lorem</b>", " **lorem** "),
+        ("<b contenteditable=\"true\">lorem</b>", "**lorem**"),
         (
             "<strong contenteditable=\"true\">lorem</strong>",
-            " **lorem** ",
+            "**lorem**",
         ),
-        ("<i contenteditable=\"true\">lorem</i>", " *lorem* "),
-        ("<em contenteditable=\"true\">lorem</i>", " *lorem* "),
+        ("<i contenteditable=\"true\">lorem</i>", "*lorem*"),
+        ("<em contenteditable=\"true\">lorem</i>", "*lorem*"),
         (
             "<ul><li contenteditable=\"true\">lorem</li></ul>",
             "- lorem\n\n",
