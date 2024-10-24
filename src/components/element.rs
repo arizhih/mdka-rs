@@ -6,7 +6,7 @@ use crate::components::node::*;
 use crate::utils::element::*;
 use crate::utils::node::*;
 
-use crate::INDENT_DEFAULT_SIZE;
+use crate::{CONFIG, INDENT_DEFAULT_SIZE};
 use crate::INDENT_UNIT_SIZE;
 
 /// h1, h2, h3, h4, h5, h6
@@ -66,11 +66,11 @@ pub fn inline_md(
 }
 /// b, strong
 fn bold(s: &str) -> String {
-    format!("**{}**", s)
+    format!("{0}{1}{0}", CONFIG.get().unwrap().bold, s )
 }
 /// i, em
 fn italic(s: &str) -> String {
-    format!("*{}*", s)
+    format!("{0}{1}{0}", CONFIG.get().unwrap().italic, s )
 }
 
 /// div, p

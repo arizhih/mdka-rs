@@ -5,7 +5,7 @@ use markup5ever_rcdom::{Handle, NodeData};
 use crate::components::element::*;
 use crate::utils::element::*;
 
-use crate::INDENT_DEFAULT_SIZE;
+use crate::{CONFIG, INDENT_DEFAULT_SIZE};
 
 /// main process on node
 pub fn node_md(node: &Handle, indent_size: Option<usize>) -> String {
@@ -50,7 +50,11 @@ pub fn element_md(
     attrs_map: &HashMap<String, String>,
 ) -> String {
     let name = element_name(node);
-    let ret = match name.as_str() {
+    let conf = &CONFIG.get().unwrap();
+    if conf.ignore_elems.contains(&name.as_str()) {
+        return String::new()
+    }
+    match name.as_str() {
         "h1" | "h2" | "h3" | "h4" | "h5" | "h6" => {
             heading_md(node, indent_size, attrs_map, name.as_str())
         }
@@ -68,12 +72,11 @@ pub fn element_md(
         "blockquote" => blockquote_md(node, indent_size, attrs_map),
         "a" => link_md(node, indent_size, attrs_map),
         "img" | "audio" | "video" => media_md(node, indent_size, attrs_map),
-        "br" => "    \n".to_owned(),
-        "hr" => "\n---\n".to_owned(),
+        "br" => conf.br.to_owned(),
+        "hr" => conf.hr.to_owned(),
         "html" | "body" | "main" | "header" | "footer" | "nav" | "section" | "article"
         | "aside" | "time" | "address" | "figure" | "figcaption" => children_md(node, None),
         // skip: script, style, svg
         _ => String::new(),
-    };
-    ret
+    }
 }

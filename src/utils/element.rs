@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use html5ever::Attribute;
 use markup5ever_rcdom::{Handle, NodeData};
 
-use crate::INDENT_DEFAULT_SIZE;
+use crate::{CONFIG, INDENT_DEFAULT_SIZE};
 
 /// get name and attrs of element from node data
 pub fn element_name_attrs_map(node: &Handle) -> (String, HashMap<String, String>) {
@@ -159,12 +159,9 @@ pub fn enclose(
     }
 }
 
-const ENCLOSURE_ATTRS: [&str; 2] = ["id", "style"];
-
 /// check if enclosure is necessary
 fn requires_enclosure(attrs_map: &HashMap<String, String>) -> bool {
-    ENCLOSURE_ATTRS.iter().any(|attr_key| {
-        let k = attr_key.to_string();
-        attrs_map.contains_key(k.as_str())
+    CONFIG.get().unwrap().enclosed_attrs.iter().any(|attr_key| {
+        attrs_map.contains_key(*attr_key)
     })
 }
