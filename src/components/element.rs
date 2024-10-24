@@ -183,7 +183,9 @@ pub fn table_md(
                 "th" | "td" => {
                     let md = node_md(td, Some(INDENT_DEFAULT_SIZE))
                         .trim_end()
-                        .to_string();
+                        .to_string()
+                        .replace('\n', "<br/>");
+
                     row = format!("{} {} |", row, md);
                 }
                 _ => {}

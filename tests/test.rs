@@ -82,7 +82,8 @@ fn table() {
 <table>
     <thead>
         <tr>
-            <th>h1</th>
+            <th>h1
+            h11</th>
             <th>h2</th>
         </tr>
     </thead>
@@ -97,7 +98,7 @@ fn table() {
         </tr>
     </tbody>
 </table>
-"#, "| h1 | h2 |\n| --- | --- |\n| d1-1 | d1-2 |\n| d2-1 | d2-2 |\n\n\n"),
+"#, "| h1<br/>            h11 | h2 |\n| --- | --- |\n| d1-1 | d1-2 |\n| d2-1 | d2-2 |\n\n\n"),
         (r#"
 <table><thead><tr>
     <th style=\"text-align: left ;\">h1</th>
