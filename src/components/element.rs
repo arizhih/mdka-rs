@@ -107,7 +107,13 @@ pub fn list_md(
     attrs_map: &HashMap<String, String>,
     is_ordered: bool,
 ) -> String {
-    let prefix = if is_ordered { "1." } else { "-" };
+    let start = if is_ordered {
+        if let Some((_,v)) = attrs_map.get_key_value("start") {
+            v.parse::<i64>().unwrap_or(1)
+        } else {
+            1i64
+        }
+    } else {0};
 
     let current_indent_size = indent_size.unwrap_or(INDENT_DEFAULT_SIZE);
     let indent_str = indent(indent_size);
@@ -122,6 +128,7 @@ pub fn list_md(
                 let child_children_content = children_md(child, next_indent_size);
                 let is_last = i == node.children.borrow().len() - 1;
                 let new_line = if is_last { "" } else { "\n" };
+                let prefix = if is_ordered { format!("{}.", start + i as i64) } else { "-".to_owned()};
                 let s = format!(
                     "{}{} {}{}",
                     indent_str, prefix, child_children_content, new_line

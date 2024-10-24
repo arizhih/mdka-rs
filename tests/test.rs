@@ -48,8 +48,8 @@ fn list() {
     let cases = vec![
         ("<ul><li>1<li>2</ul>", "- 1\n- 2\n\n"),
         ("<ul><li>1</li><li>2</li></ul>", "- 1\n- 2\n\n"),
-        ("<ol><li>1<li>2</ol>", "1. 1\n1. 2\n\n"),
-        ("<ol><li>1</li><li>2</li></ol>", "1. 1\n1. 2\n\n"),
+        ("<ol><li>1<li>2</ol>", "1. 1\n2. 2\n\n"),
+        ("<ol><li>1</li><li>2</li></ol>", "1. 1\n2. 2\n\n"),
         (
             "<ul><li>1<ul><li>1-1<li>1-2</ul><li>2</ul>",
             "- 1\n    - 1-1\n    - 1-2\n- 2\n\n",
@@ -64,11 +64,11 @@ fn list() {
         ),
         (
             "<ul><li>1<ol><li>1-1<li>1-2</ol><li>2</ul>",
-            "- 1\n    1. 1-1\n    1. 1-2\n- 2\n\n",
+            "- 1\n    1. 1-1\n    2. 1-2\n- 2\n\n",
         ),
         (
             "<ol><li>1<ul><li>1-1<li>1-2</ul><li>2</ol>",
-            "1. 1\n    - 1-1\n    - 1-2\n1. 2\n\n",
+            "1. 1\n    - 1-1\n    - 1-2\n2. 2\n\n",
         ),
     ];
     assert(cases);
@@ -488,7 +488,7 @@ fn contenteditable_element() {
     <li contenteditable=\"true\">dolor</li>
 </ol>
         "#,
-            "1. lorem\n1. \n    1. ipsum\n1. dolor\n\n\n        ",
+            "1. lorem\n2. \n    1. ipsum\n3. dolor\n\n\n        ",
         ),
         (
             r#"
@@ -509,16 +509,16 @@ fn contenteditable_element() {
 </ol>
         "#,
             r#"1. lorem-1
-1. lorem-2
+2. lorem-2
     - ipsum-1
     - ipsum-2
     - ipsum-3
         1. dolor-1
-        1. dolor-2
-        1. dolor-3
+        2. dolor-2
+        3. dolor-3
     - ipsum-4
-1. lorem-3
-1. lorem-4
+3. lorem-3
+4. lorem-4
 
 
         "#,
